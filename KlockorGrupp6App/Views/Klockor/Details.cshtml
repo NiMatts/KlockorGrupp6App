@@ -1,5 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DetailsVM
+
 @{
+    ViewBag.Title = "Klockor Details";
 }
+
+<h4>Brand: <i>@Model.Brand</i></h4>
+<h4>Model: <i>@Model.Model</i></h4>
+<h4>Price: <i>@Model.Price</i></h4>
+<h4>Year: <i>@Model.Year</i></h4>
