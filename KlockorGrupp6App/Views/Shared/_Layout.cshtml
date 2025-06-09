@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
 </head>
 <body>
+    <nav>
+        <a asp-controller="Account" asp-action="Members">Members</a>
+        <a asp-controller="Account" asp-action="Register">Register</a>
+        <a asp-controller="Account" asp-action="LogIn">Login</a>
+    </nav>
     <h1>Acme</h1>
     <div>
         @* <partial name="_LoginForm" model="3" /> *@
