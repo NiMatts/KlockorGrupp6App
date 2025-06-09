@@ -8,3 +8,4 @@ public class Clock
     public decimal Price { get; set; }
     public DateTime Year { get; set; }
 }
+

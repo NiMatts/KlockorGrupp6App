@@ -1,7 +1,7 @@
 ﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Domain;
 
-namespace KlockorGrupp6App.Infrastructure.Repositories
+namespace KlockorGrupp6App.Infrastructure.Persistance.Repositories
 {
     public class ClockRepository : IClockRepository
     {
