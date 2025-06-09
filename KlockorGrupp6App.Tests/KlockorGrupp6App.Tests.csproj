@@ -9,9 +9,14 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="xunit" Version="2.9.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="FluentAssertions" Version="8.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -19,8 +24,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApplicationTests\" />
     <Folder Include="WebTests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KlockorGrupp6.Infrastructure\KlockorGrupp6App.Infrastructure.csproj" />
+    <ProjectReference Include="..\KlockorGrupp6App.Application\KlockorGrupp6App.Application.csproj" />
+    <ProjectReference Include="..\KlockorGrupp6App.Domain\KlockorGrupp6App.Domain.csproj" />
+    <ProjectReference Include="..\KlockorGrupp6App.Terminal\KlockorGrupp6App.Terminal.csproj" />
+    <ProjectReference Include="..\KlockorGrupp6App\KlockorGrupp6App.Web.csproj" />
   </ItemGroup>
 
 </Project>
