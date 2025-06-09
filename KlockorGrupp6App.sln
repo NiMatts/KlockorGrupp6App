@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Web", "KlockorGrupp6App\KlockorGrupp6App.Web.csproj", "{9BBD1CED-D1DF-43F5-97B0-C3BEFD37A9CB}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Domain", "KlockorGrupp6App.Domain\KlockorGrupp6App.Domain.csproj", "{1C9F5A85-B565-4CE9-BB0E-BA3694E82ACF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Infrastructure", "KlockorGrupp6.Infrastructure\KlockorGrupp6App.Infrastructure.csproj", "{C226C551-6F48-463C-A1E0-2E8E052789C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Tests", "KlockorGrupp6App.Tests\KlockorGrupp6App.Tests.csproj", "{FE2DDE7D-37A5-4E47-8DA3-EC3C90502D44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Terminal", "KlockorGrupp6App.Terminal\KlockorGrupp6App.Terminal.csproj", "{EE609BFC-F010-4B69-BFAC-B1C05794A1AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{C226C551-6F48-463C-A1E0-2E8E052789C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C226C551-6F48-463C-A1E0-2E8E052789C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C226C551-6F48-463C-A1E0-2E8E052789C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE2DDE7D-37A5-4E47-8DA3-EC3C90502D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE2DDE7D-37A5-4E47-8DA3-EC3C90502D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE2DDE7D-37A5-4E47-8DA3-EC3C90502D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE2DDE7D-37A5-4E47-8DA3-EC3C90502D44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE609BFC-F010-4B69-BFAC-B1C05794A1AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE609BFC-F010-4B69-BFAC-B1C05794A1AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE609BFC-F010-4B69-BFAC-B1C05794A1AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE609BFC-F010-4B69-BFAC-B1C05794A1AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
