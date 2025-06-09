@@ -1,6 +1,6 @@
 ﻿namespace KlockorGrupp6App.Domain;
 
-public class Klockor
+public class Clock
 {
     public int Id { get; set; }
     public string Brand { get; set; }

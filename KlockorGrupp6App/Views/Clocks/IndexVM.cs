@@ -2,8 +2,8 @@
 {
     public class IndexVM
     {
-        public KlockorDataVM[] KlockorItems { get; set; }
-        public class KlockorDataVM
+        public ClocksDataVM[] ClocksItems { get; set; }
+        public class ClocksDataVM
         {
             public required string Brand { get; set; }
             public required string Model { get; set; }
