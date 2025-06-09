@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KlockorGrupp6App.Application\KlockorGrupp6App.Application.csproj" />
+  </ItemGroup>
+
 </Project>

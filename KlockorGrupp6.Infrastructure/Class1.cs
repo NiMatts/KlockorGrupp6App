@@ -1,4 +1,4 @@
-﻿namespace KlockorGrupp6.Infrastructure
+﻿namespace KlockorGrupp6App.Infrastructure
 {
     public class Class1
     {

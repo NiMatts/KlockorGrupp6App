@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Domain", "KlockorGrupp6App.Domain\KlockorGrupp6App.Domain.csproj", "{1C9F5A85-B565-4CE9-BB0E-BA3694E82ACF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6.Infrastructure", "KlockorGrupp6.Infrastructure\KlockorGrupp6.Infrastructure.csproj", "{C226C551-6F48-463C-A1E0-2E8E052789C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlockorGrupp6App.Infrastructure", "KlockorGrupp6.Infrastructure\KlockorGrupp6App.Infrastructure.csproj", "{C226C551-6F48-463C-A1E0-2E8E052789C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

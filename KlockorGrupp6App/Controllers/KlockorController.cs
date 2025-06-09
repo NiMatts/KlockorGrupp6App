@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KlockorGrupp6App.Web.Views.Klockor;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KlockorGrupp6App.Web.Controllers;
 
@@ -22,9 +23,9 @@ public class KlockorController : Controller
         return View();
     }
 
-    //[HttpPost("create")]
-    //public IActionResult Create()
-    //{
-    //    return View();
-    //}
+    [HttpPost("create")]
+    public IActionResult Create(CreateVM viewModel)
+    {
+        return View();
+    }
 }

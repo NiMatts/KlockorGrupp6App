@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
+    <ProjectReference Include="..\KlockorGrupp6.Infrastructure\KlockorGrupp6App.Infrastructure.csproj" />
+    <ProjectReference Include="..\KlockorGrupp6App.Application\KlockorGrupp6App.Application.csproj" />
   </ItemGroup>
 
 </Project>
