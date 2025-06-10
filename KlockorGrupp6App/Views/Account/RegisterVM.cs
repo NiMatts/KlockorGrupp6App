@@ -21,6 +21,8 @@ public class RegisterVM
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
+    public bool isAdmin { get; set; } = false;
+
     [Required]
     [DataType(DataType.Password)]
     [Display(Name = "Repeat password")]

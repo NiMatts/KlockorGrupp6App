@@ -17,29 +17,39 @@ namespace KlockorGrupp6App.Infrastructure.Services
     {
         public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password, bool isAdmin)
         {
-            var result = await userManager.CreateAsync(new ApplicationUser
+            var appUser = new ApplicationUser
             {
                 UserName = user.Email,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName
-            }, password);
+            };
 
-            //if (isAdmin)
-            //{
-            //    const string RoleName = "Administrator";
-            //    ApplicationUser user = await userManager.FindByIdAsync(userId);
-            //    // Skapa en ny roll
-            //    if (!await roleManager.RoleExistsAsynd(RoleName))
-            //        await roleManager.CreateAsync(new IdentityRole(RoleName));
-            //    // Lägg till en användare till en roll
-            //    if (addUserToRole)
-            //        await userManager.AddToRoleAsync(user, RoleName);
-            //    // Kontrollera huruvida en användare ingår i en roll
-            //    bool isUserInRole = await userManager.IsInRoleAsync(user, RoleName);
-            //}
+            var result = await userManager.CreateAsync(appUser, password);
 
-            return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
+            if (!result.Succeeded)
+            {
+                return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
+            }
+
+            // Now you can access the user's ID
+            var userId = appUser.Id;
+            if (isAdmin)
+            {
+                const string RoleName = "Administrator";
+               // ApplicationUser user = await userManager.FindByIdAsync(userId);
+                // Skapa en ny roll
+                if (!await roleManager.RoleExistsAsync(RoleName))
+                    await roleManager.CreateAsync(new IdentityRole(RoleName));
+                // Lägg till en användare till en roll
+                    await userManager.AddToRoleAsync(appUser, RoleName);
+                // Kontrollera huruvida en användare ingår i en roll
+                bool isUserInRole = await userManager.IsInRoleAsync(appUser, RoleName);
+                if (isUserInRole)
+                    Console.WriteLine("Role configuration succeeded");
+            }
+
+                return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
         }
 
         public async Task<UserResultDto> SignInAsync(string email, string password)

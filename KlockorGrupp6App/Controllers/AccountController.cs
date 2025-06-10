@@ -3,6 +3,7 @@ using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Web.Views.Account;
 using Microsoft.AspNetCore.Authorization;
+using System.Data;
 namespace KlockorGrupp6App.Web.Controllers;
 
 public class AccountController(IUserService userService) : Controller
@@ -12,7 +13,13 @@ public class AccountController(IUserService userService) : Controller
     [Authorize]
     public IActionResult Members()
     {
-        userService.Roles();
+        return View();
+    }
+    //Implementera isAdmin i inloggad 
+    [HttpGet("admin")]
+    [Authorize(Roles = "Administrator")]
+    public IActionResult Admin()
+    {
         return View();
     }
 
@@ -30,7 +37,7 @@ public class AccountController(IUserService userService) : Controller
 
         // Try to register user
         var userDto = new UserProfileDto(viewModel.Email, viewModel.FirstName, viewModel.LastName);
-        var result = await userService.CreateUserAsync(userDto, viewModel.Password);
+        var result = await userService.CreateUserAsync(userDto, viewModel.Password,viewModel.isAdmin);
         if (!result.Succeeded)
         {
             // Show error
@@ -64,7 +71,7 @@ public class AccountController(IUserService userService) : Controller
         }
 
         // Redirect user
-        return RedirectToAction(nameof(Members));
+        return RedirectToAction(nameof(Admin));
     }
 
     [HttpGet("logout")]
