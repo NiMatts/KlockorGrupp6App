@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Application.Users;
-using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Web.Views.Account;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 namespace KlockorGrupp6App.Web.Controllers;
 
@@ -10,7 +11,7 @@ public class AccountController(IUserService userService) : Controller
 {
     //[HttpGet("")]
     [HttpGet("members")]
-    [Authorize]
+    [Authorize][Authorize(Roles = "Administrator")]
     public IActionResult Members()
     {
         return View();
@@ -71,6 +72,17 @@ public class AccountController(IUserService userService) : Controller
         }
 
         // Redirect user
+        //var user = await userService.FindByNameAsync(viewModel.Username);
+
+        //// Kontrollera roll
+        //if (await userManager.IsInRoleAsync(user, "Administrator"))
+        //{
+        //    return RedirectToAction("Admin", "YourControllerName"); // Ersätt med rätt controller
+        //}
+        //else
+        //{
+        //    return RedirectToAction("Members", "YourControllerName");
+        //}
         return RedirectToAction(nameof(Admin));
     }
 
