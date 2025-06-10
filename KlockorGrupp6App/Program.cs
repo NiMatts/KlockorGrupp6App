@@ -3,25 +3,47 @@ using KlockorGrupp6App.Application.Clocks.Services;
 using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Infrastructure.Persistance.Repositories;
+using KlockorGrupp6App.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace KlockorGrupp6App
+namespace KlockorGrupp6App.Web
 {
     public class Program
     {
         public static void Main(string[] args)
-       {
+        {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IClockService, ClockService>();
             builder.Services.AddScoped<IClockRepository, ClockRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = true;
+            })
+            .AddEntityFrameworkStores<ApplicationContext>()
+            .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/login";
+                options.LogoutPath = "/logout";
+                options.AccessDeniedPath = "/AccessDenied";
+            });
+
             //builder.Services.AddScoped(IClockService, ClockService);
             //builder.Services.AddScoped(IClockRepository, ClockRepository);
             var connString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationContext>(o => o.UseSqlServer(connString));
             var app = builder.Build();
-            
+
+            app.UseAuthorization();
+
             app.MapControllers();
             app.Run();
         }

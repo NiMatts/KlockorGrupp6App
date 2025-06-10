@@ -2,12 +2,14 @@
 using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Web.Views.Account;
+using Microsoft.AspNetCore.Authorization;
 namespace KlockorGrupp6App.Web.Controllers;
 
 public class AccountController(IUserService userService) : Controller
 {
     //[HttpGet("")]
     [HttpGet("members")]
+    [Authorize]
     public IActionResult Members()
     {
         return View();
@@ -63,4 +65,13 @@ public class AccountController(IUserService userService) : Controller
         // Redirect user
         return RedirectToAction(nameof(Members));
     }
+
+    [HttpGet("logout")]
+    [Authorize]
+    public async Task<IActionResult> Logout()
+    {
+        await userService.SignOutAsync();
+        return RedirectToAction(nameof(Login));
+    }
+
 }

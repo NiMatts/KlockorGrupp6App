@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KlockorGrupp6App.Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace KlockorGrupp6App.Infrastructure.Persistance;
 
 public class ApplicationContext(DbContextOptions<ApplicationContext> options)
-    : DbContext(options)
+    : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
 {
     public DbSet<Clock> Clocks { get; set; } = null!;
 
@@ -21,7 +23,7 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options)
         // Fluent API - specify database column type for salary
         modelBuilder.Entity<Clock>()
             .Property(s => s.Price)
-            .HasColumnType(SqlDbType.Money.ToString());
+            .HasColumnType("money");
 
         // Seed sample data for Employees
         modelBuilder.Entity<Clock>().HasData(
