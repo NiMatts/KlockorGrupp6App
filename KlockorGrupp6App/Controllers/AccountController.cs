@@ -12,6 +12,7 @@ public class AccountController(IUserService userService) : Controller
     [Authorize]
     public IActionResult Members()
     {
+        userService.Roles();
         return View();
     }
 

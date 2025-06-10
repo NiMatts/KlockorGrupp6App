@@ -12,9 +12,10 @@ namespace KlockorGrupp6App.Infrastructure.Services
 {
     public class IdentityUserService(
     UserManager<ApplicationUser> userManager,
-    SignInManager<ApplicationUser> signInManager) : IIdentityUserService
+    SignInManager<ApplicationUser> signInManager,
+    RoleManager<IdentityRole> roleManager) : IIdentityUserService
     {
-        public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password)
+        public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password, bool isAdmin)
         {
             var result = await userManager.CreateAsync(new ApplicationUser
             {
@@ -23,6 +24,20 @@ namespace KlockorGrupp6App.Infrastructure.Services
                 FirstName = user.FirstName,
                 LastName = user.LastName
             }, password);
+
+            //if (isAdmin)
+            //{
+            //    const string RoleName = "Administrator";
+            //    ApplicationUser user = await userManager.FindByIdAsync(userId);
+            //    // Skapa en ny roll
+            //    if (!await roleManager.RoleExistsAsynd(RoleName))
+            //        await roleManager.CreateAsync(new IdentityRole(RoleName));
+            //    // Lägg till en användare till en roll
+            //    if (addUserToRole)
+            //        await userManager.AddToRoleAsync(user, RoleName);
+            //    // Kontrollera huruvida en användare ingår i en roll
+            //    bool isUserInRole = await userManager.IsInRoleAsync(user, RoleName);
+            //}
 
             return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
         }

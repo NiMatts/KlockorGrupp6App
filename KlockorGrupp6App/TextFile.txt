@@ -15,8 +15,8 @@ med den projektstruktur som typiskt används i Clean Architecture: OK
 	Inloggade användare ska kunna logga ut: INTE OK
 	Det ska finnas en sida (/members) som kräver att man är inloggad: påbörjad
 	Det ska finnas en sida (/admin) som kräver att man är inloggad och att ens användare är med i rollen ”Administrators”: INTE PÅBÖRJAD
-	Låt er IdentityUserService tar in en bool då man skapar en användare som specar huruvida användaren ska vara en admin eller inte,
-	om Admin-rollen inte finns i databasen kan rollen skapas då (enligt koden finns i slide-decket): INTE PÅBÖRJAD
+		Låt er IdentityUserService tar in en bool då man skapar en användare som specar huruvida användaren ska vara en admin eller inte,
+		om Admin-rollen inte finns i databasen kan rollen skapas då (enligt koden finns i slide-decket): INTE PÅBÖRJAD
 	MVC-projektet ska innehålla minst två Controller-klasser (t.ex. en för entiteterna och en för account-hantering): OK
 	MVC-projektets vyer ska alla arbeta mot vy-modeller (att använda samma vy-modell till flera vyer godkänns inte – exakt en vy-modell per vy): OK
 	Lösningen ska innehålla projekt som utför enhetstestning av Applikations-projektets service(s) och MVC-projektets controller-klasser: INTE PÅBÖRJAD

@@ -10,13 +10,19 @@ namespace KlockorGrupp6App.Application.Users;
 public class UserService(IIdentityUserService identityUserService) : IUserService
 {
     public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password) =>
-       await Task.FromResult(new UserResultDto("Creating users is not yet implemented"));
+       await identityUserService.CreateUserAsync(user,password);
 
     public async Task<UserResultDto> SignInAsync(string email, string password) =>
-        await Task.FromResult(new UserResultDto("Signing in is not yet implemented"));
+        await identityUserService.SignInAsync(email, password);
+        //Task.FromResult(new UserResultDto("Signing in is not yet implemented"));
 
     public async Task SignOutAsync()
     {
         await identityUserService.SignOutAsync();
+    }
+
+    public async Task Roles()
+    {
+        await identityUserService.Roles();
     }
 }
