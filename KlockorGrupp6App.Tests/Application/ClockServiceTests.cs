@@ -14,24 +14,33 @@ namespace KlockorGrupp6App.Tests.Application
     public class ClockServiceTests
     {
         #region [Test Setup]
-        private readonly Mock<IClockRepository> _mockClockRepository;
-        private readonly Mock<IUnitOfWork> _mockUnitOfWork; // UnitOfWork still needs to be implemented        
+        // Mocked dependencies
+        private readonly Mock<IClockRepository> _mockClockRepo;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
+
+        // Service under test
         private readonly ClockService _service;
 
         public ClockServiceTests()
         {
-            _mockClockRepository = new Mock<IClockRepository>();
+            // Set up mocks
+            _mockClockRepo = new Mock<IClockRepository>();
             _mockUnitOfWork = new Mock<IUnitOfWork>();
-            _mockUnitOfWork.Setup(u => u.Clocks).Returns(_mockClockRepository.Object);
+
+            // Configure UnitOfWork to return the mocked repository
+            _mockUnitOfWork.Setup(u => u.Clocks).Returns(_mockClockRepo.Object);
+
+            // Inject mocked UnitOfWork into ClockService
             _service = new ClockService(_mockUnitOfWork.Object);
 
         }
         #endregion
 
+        [Trait("ClockService", "GetAll")]
         [Fact]
         public void GetAll_ShouldReturnAllClocks()
         {
-            // Arrange - Creating a list with 2 clock-objects
+            // Arrange: Creating a list with 2 clock-objects
             var clocks = new List<Clock>
             {
                 new Clock { Id = 1, Brand = "Rolex", Model = "Submariner", Price = 98000m, Year = new DateTime(2022, 1, 1) },
@@ -39,9 +48,9 @@ namespace KlockorGrupp6App.Tests.Application
             };
 
             // Setting up the mock repository so when GetAll() is called. It will "pretend" to return the clocks list we created above.
-            _mockClockRepository.Setup(repo => repo.GetAll()).Returns(clocks.ToArray());
+            _mockClockRepo.Setup(r => r.GetAll()).Returns(clocks.ToArray());
 
-            // Act - Calling the GetAll method on the service (Wich we have mocked to return the clocks list)
+            // Act: Calling the GetAll method on the service (Wich we have mocked to return the clocks list)
             var result = _service.GetAll();
 
             // Assert
@@ -49,11 +58,12 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Equal("Rolex", result[0].Brand); // Checking that the first clock's brand is "Rolex"
         }
 
+        [Trait("ClockService", "GetAll")]
         [Fact]
         public void GetAll_WhenNoClocksExist_ShouldReturnEmptyArray()
         {
-            // Arrange
-            _mockClockRepository.Setup(repo => repo.GetAll()).Returns(Array.Empty<Clock>());
+            // Arrange: Configure mock to return an empty array when GetAll is called
+            _mockClockRepo.Setup(r => r.GetAll()).Returns(Array.Empty<Clock>());
 
             // Act
             var result = _service.GetAll();
@@ -63,16 +73,99 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Empty(result);
         }
 
+        [Trait("ClockService", "GetById")]
         [Fact]
+        public void GetById_ShouldReturnCorrectClock()
+        {
+            // Arrange: Creating a clock object with Id 1 and Brand "Rolex"
+            var clock = new Clock { Id = 1, Brand = "Rolex" };
+            _mockClockRepo.Setup(r => r.GetById(1)).Returns(clock);
+
+            // Act
+            var result = _service.GetById(1);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal("Rolex", result.Brand);
+        }
+
+        [Trait("ClockService", "GetById")]
+        [Fact]        
         public void GetById_WhenClockDoesNotExist_ShouldReturnNull()
         {
-            _mockClockRepository.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Clock?)null);
+            // Arrange: Simulate no match found
+            _mockClockRepo.Setup(r => r.GetById(It.IsAny<int>())).Returns((Clock?)null);
 
+            // Act
             var result = _service.GetById(666);
 
+            // Assert
             Assert.Null(result);
         }
 
-        //Still a work in progress. Need to fix Async methods and implement UnitOfWork before getting things in order.
-    }
+        [Trait("ClockService", "GetAllByUserId")]
+        [Fact]
+        public void GetAllByUserId_ShouldReturnOnlyClocksForThatUser()
+        {
+            // Arrange
+            var userId = "user-1";
+            var clocks = new[]
+            {
+            new Clock { Id = 1, Brand = "Rolex" },
+            new Clock { Id = 2, Brand = "Omega" }
+        };
+
+            _mockClockRepo.Setup(r => r.GetAllByUserId(userId)).Returns(clocks);
+
+            // Act
+            var result = _service.GetAllByUserId(userId);
+
+            // Assert
+            Assert.Equal(2, result.Length);
+        }
+
+        [Trait("ClockService", "GetAllByUserId")]
+        [Fact]
+        public void GetAllByUserId_WhenUserHasNoClocks_ShouldReturnEmptyArray()
+        {
+            // Arrange: Simulating a user with no clocks
+            var userId = "user-x";
+            _mockClockRepo.Setup(r => r.GetAllByUserId(userId)).Returns(Array.Empty<Clock>());
+
+            // Act
+            var result = _service.GetAllByUserId(userId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result);
+        }
+
+        [Trait("ClockService", "Add")]
+        [Fact]
+        public void Add_ShouldCallAddOnRepositoryWithCorrectClock()
+        {
+            // Arrange
+            var clock = new Clock { Id = 1, Brand = "Rolex" };
+
+            // Act
+            _service.Add(clock);
+
+            // Assert: Verifying that Add method on the repository is called once with the clock object
+            _mockClockRepo.Verify(r => r.Add(clock), Times.Once);
+        }
+
+        [Trait("ClockService", "Add")]
+        [Fact]
+        public void Add_ShouldCallPersistAllAsync()
+        {
+            // Arrange
+            var clock = new Clock { Id = 1, Brand = "Rolex" };
+
+            // Act
+            _service.Add(clock);
+
+            // Assert: Verifying that PersistAllAsync is called once when adding a clock
+            _mockUnitOfWork.Verify(u => u.PersistAllAsync(), Times.Once);
+        }
+    }   
 }
