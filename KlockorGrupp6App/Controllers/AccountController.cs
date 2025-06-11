@@ -13,7 +13,7 @@ public class AccountController(IUserService userService, UserManager<Application
 {
     //[HttpGet("")]
     [HttpGet("members")]
-    [Authorize][Authorize(Roles = "Administrator")]
+    [Authorize]
     public IActionResult Members()
     {
         return View();
@@ -85,7 +85,8 @@ public class AccountController(IUserService userService, UserManager<Application
         if (roles.Contains("Administrator"))
             return RedirectToAction(nameof(Admin));
         else
-            return RedirectToAction("Index", "Clocks");
+            return RedirectToAction(nameof(Members));
+            //return RedirectToAction("Index", "Clocks");
         // Redirect user
         //return RedirectToAction(nameof(Admin));
     }

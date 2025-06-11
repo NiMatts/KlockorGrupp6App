@@ -37,6 +37,8 @@ public class ClocksController(IClockService service) : Controller
     [HttpPost("create")]
     public IActionResult Create(CreateVM viewModel)
     {
+
+        User.Identity.Name.
         return View();
     }
 }
