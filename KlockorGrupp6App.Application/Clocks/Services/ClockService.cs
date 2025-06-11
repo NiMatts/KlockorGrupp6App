@@ -22,6 +22,8 @@ public class ClockService(IUnitOfWork unitOfWork) : IClockService
 
     public void Add(Clock clock)
     {
+        //var userId = userService.GetCurrentUserId();
+        //clock.CreatedByUserId = userId;
         unitOfWork.Clocks.Add(clock);
         unitOfWork.PersistAllAsync();
     }
