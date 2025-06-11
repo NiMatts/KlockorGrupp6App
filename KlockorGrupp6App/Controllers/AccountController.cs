@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Application.Users;
-using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Web.Views.Account;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
 using KlockorGrupp6App.Infrastructure.Persistance;
@@ -12,7 +13,7 @@ public class AccountController(IUserService userService, UserManager<Application
 {
     //[HttpGet("")]
     [HttpGet("members")]
-    [Authorize]
+    [Authorize][Authorize(Roles = "Administrator")]
     public IActionResult Members()
     {
         return View();
