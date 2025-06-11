@@ -10,3 +10,10 @@
         <li>@item.Brand</li>
     }
 </ol>
+@if (User.Identity!.IsAuthenticated)
+{
+    <p>
+        Welcome <strong>@User.Identity!.Name</strong>!
+    </p>
+    <a asp-controller="Clocks" asp-action="Create">create</a>
+}

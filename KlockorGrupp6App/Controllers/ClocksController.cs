@@ -1,6 +1,8 @@
 ﻿using KlockorGrupp6App.Web.Views.Klockor;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using KlockorGrupp6App.Domain;
+using KlockorGrupp6App.Application.Clocks.Services;
 
 namespace KlockorGrupp6App.Web.Controllers;
 
@@ -37,8 +39,19 @@ public class ClocksController(IClockService service) : Controller
     [HttpPost("create")]
     public IActionResult Create(CreateVM viewModel)
     {
+        if (!ModelState.IsValid)
+            return View();
 
-        User.Identity.Name.
-        return View();
+        var clock = new Clock
+        {
+            Brand = viewModel.Brand,
+            Model = viewModel.Model,
+            Price = viewModel.Price,
+            Year = viewModel.Year,
+        };
+
+        service.Add(clock);
+
+        return RedirectToAction(nameof(Index));
     }
 }

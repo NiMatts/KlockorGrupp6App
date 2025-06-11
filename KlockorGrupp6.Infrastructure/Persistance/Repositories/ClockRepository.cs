@@ -18,6 +18,7 @@ namespace KlockorGrupp6App.Infrastructure.Persistance.Repositories
             
             //context.Clock.Id = clocks.Count < 0 ? 1 : clocks.Max(e => e.Id) + 1;
             context.Clocks.Add(clock);
+            context.SaveChanges();
         }
 
 

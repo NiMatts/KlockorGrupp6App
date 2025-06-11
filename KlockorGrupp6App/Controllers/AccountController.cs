@@ -23,14 +23,13 @@ public class AccountController(IUserService userService, UserManager<Application
     [Authorize(Roles = "Administrator")]
     public async Task <IActionResult> Admin()
     {
-        
+        await Task.Delay(2000);
         var user = await userManager.GetUserAsync(User);
         var model = new AdminVM
         {
             Username = user.Email
         };
-   
-        return View(model);
+        return View();
     }
 
     [HttpGet("register")]

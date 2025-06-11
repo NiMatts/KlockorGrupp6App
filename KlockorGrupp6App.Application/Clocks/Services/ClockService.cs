@@ -8,7 +8,8 @@ using KlockorGrupp6App.Domain;
 
 namespace KlockorGrupp6App.Application.Clocks.Services;
 
-public class ClockService(IClockRepository clockRepository) : IClockService
+//public class ClockService(IClockRepository clockRepository) : IClockService
+public class ClockService(IUnitOfWork unitOfWork) : IClockService
 {
     List<Clock> clocks = new List<Clock>
         {
@@ -21,17 +22,18 @@ public class ClockService(IClockRepository clockRepository) : IClockService
 
     public void Add(Clock clock)
     {
-        clockRepository.Add(clock);
+        unitOfWork.Clocks.Add(clock);
+        unitOfWork.PersistAllAsync();
     }
 
     public Clock[] GetAll()
     {
-        return clockRepository.GetAll();
+        return unitOfWork.Clocks.GetAll();
     }
 
     public Clock? GetById(int id)
     {
-        return clockRepository.GetById(id);
+        return unitOfWork.Clocks.GetById(id);
     }
 
     //public void Delete(int id)
