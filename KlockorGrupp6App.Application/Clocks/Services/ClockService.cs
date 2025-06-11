@@ -37,7 +37,10 @@ public class ClockService(IUnitOfWork unitOfWork) : IClockService
     {
         return unitOfWork.Clocks.GetById(id);
     }
-
+    public Clock[]? GetAllByUserId(string id)
+    {
+        return unitOfWork.Clocks.GetAllByUserId(id);
+    }
     //public void Delete(int id)
     //{
 

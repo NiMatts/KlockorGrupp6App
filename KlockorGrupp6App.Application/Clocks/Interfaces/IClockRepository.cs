@@ -7,6 +7,7 @@ namespace KlockorGrupp6App.Application.Clocks.Interfaces
         void Add(Clock clock);
         void Delete(int id);
         Clock[] GetAll();
+        Clock[] GetAllByUserId(string userId);
         Clock GetById(int id);
     }
 }

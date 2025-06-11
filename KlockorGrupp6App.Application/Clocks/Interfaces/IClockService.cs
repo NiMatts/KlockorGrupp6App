@@ -6,5 +6,6 @@ public interface IClockService
 {
     void Add(Clock clock);
     Clock[] GetAll();
+    Clock[]? GetAllByUserId(string id);
     Clock? GetById(int id);
 }

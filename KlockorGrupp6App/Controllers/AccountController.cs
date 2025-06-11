@@ -7,16 +7,30 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
 using KlockorGrupp6App.Infrastructure.Persistance;
+using KlockorGrupp6App.Application.Clocks.Interfaces;
+using KlockorGrupp6App.Web.Views.Klockor;
 namespace KlockorGrupp6App.Web.Controllers;
 
-public class AccountController(IUserService userService, UserManager<ApplicationUser> userManager) : Controller
+public class AccountController(IUserService userService, UserManager<ApplicationUser> userManager, IClockService clockService) : Controller
 {
     //[HttpGet("")]
     [HttpGet("members")]
     [Authorize]
-    public IActionResult Members()
+    public async Task <IActionResult> Members()
     {
-        return View();
+        var user = await userManager.FindByEmailAsync(User.Identity.Name);
+        var model = clockService.GetAllByUserId(user.Id);
+        var viewModel = new MembersVM()
+        {
+            ClocksItems = model.Select(c => new MembersVM.ClocksDataVM()
+            {
+                Brand = c.Brand,
+                Model = c.Model,
+            }).ToArray()
+        };
+
+        return View(viewModel);
+        //return View();
     }
 
     [HttpGet("admin")]

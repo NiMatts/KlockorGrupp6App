@@ -2,9 +2,9 @@
 @if (User.Identity!.IsAuthenticated)
 {
     <p>
-        Welcome <strong>@User.Identity!.Name</strong>!
+       Admin <strong>@User.Identity!.Name</strong>
     </p>
-    <a asp-controller="Clocks" asp-action="Index">Watch</a>
+    
     <a asp-controller="Account" asp-action="Logout">Sign out</a>
 }
 else

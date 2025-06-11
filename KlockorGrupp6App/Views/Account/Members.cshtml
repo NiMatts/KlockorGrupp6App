@@ -1,11 +1,19 @@
-﻿<h3>Members</h3>
+﻿@model MembersVM
 @if (User.Identity!.IsAuthenticated)
 {
     <p>
-        Welcome <strong>@User.Identity!.Name</strong>!
+        Member <strong>@User.Identity!.Name</strong>!
     </p>
-    <a asp-controller="Clocks" asp-action="Index">Watch</a>
+    <p> Count: <strong>@Model.ClocksItems.Length</strong></p>
+    <ol>
+        @foreach (var item in Model.ClocksItems)
+        {
+            <li>@item.Brand</li>
+        }
+    </ol>
+    
     <a asp-controller="Account" asp-action="Logout">Sign out</a>
+
 }
 else
 {

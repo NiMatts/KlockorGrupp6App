@@ -25,6 +25,7 @@ namespace KlockorGrupp6App.Infrastructure.Persistance.Repositories
         // Collection expression syntax, introduced in C# 12.
         public Clock[] GetAll() => [.. context.Clocks.OrderBy(c => c.Brand)];
 
+        public Clock[] GetAllByUserId(string userId) => [.. context.Clocks.Where(c => c.CreatedByUserID == userId).OrderBy(c => c.Brand)];
         ////Classic C# syntax for GetAll()
         //public Employee[] GetAll()
         //{
