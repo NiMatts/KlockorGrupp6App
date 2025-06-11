@@ -36,7 +36,7 @@ namespace KlockorGrupp6App.Tests.Application
         }
         #endregion
 
-        [Trait("ClockService", "GetAll")]
+        [Trait("ClocksService", "GetAll")]
         [Fact]
         public void GetAll_ShouldReturnAllClocks()
         {
@@ -58,7 +58,7 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Equal("Rolex", result[0].Brand); // Checking that the first clock's brand is "Rolex"
         }
 
-        [Trait("ClockService", "GetAll")]
+        [Trait("ClocksService", "GetAll")]
         [Fact]
         public void GetAll_WhenNoClocksExist_ShouldReturnEmptyArray()
         {
@@ -73,7 +73,7 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Empty(result);
         }
 
-        [Trait("ClockService", "GetById")]
+        [Trait("ClocksService", "GetById")]
         [Fact]
         public void GetById_ShouldReturnCorrectClock()
         {
@@ -89,7 +89,7 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Equal("Rolex", result.Brand);
         }
 
-        [Trait("ClockService", "GetById")]
+        [Trait("ClocksService", "GetById")]
         [Fact]        
         public void GetById_WhenClockDoesNotExist_ShouldReturnNull()
         {
@@ -103,7 +103,7 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Null(result);
         }
 
-        [Trait("ClockService", "GetAllByUserId")]
+        [Trait("ClocksService", "GetAllByUserId")]
         [Fact]
         public void GetAllByUserId_ShouldReturnOnlyClocksForThatUser()
         {
@@ -124,7 +124,7 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Equal(2, result.Length);
         }
 
-        [Trait("ClockService", "GetAllByUserId")]
+        [Trait("ClocksService", "GetAllByUserId")]
         [Fact]
         public void GetAllByUserId_WhenUserHasNoClocks_ShouldReturnEmptyArray()
         {
@@ -140,7 +140,7 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Empty(result);
         }
 
-        [Trait("ClockService", "Add")]
+        [Trait("ClocksService", "Add")]
         [Fact]
         public void Add_ShouldCallAddOnRepositoryWithCorrectClock()
         {
@@ -154,7 +154,7 @@ namespace KlockorGrupp6App.Tests.Application
             _mockClockRepo.Verify(r => r.Add(clock), Times.Once);
         }
 
-        [Trait("ClockService", "Add")]
+        [Trait("ClocksService", "Add")]
         [Fact]
         public void Add_ShouldCallPersistAllAsync()
         {
