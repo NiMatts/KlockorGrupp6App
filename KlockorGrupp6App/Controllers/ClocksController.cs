@@ -31,7 +31,17 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
     [HttpGet("details/{id}")]
     public IActionResult Details(int id)
     {
-        return View();
+        var model = service.GetById(id);
+
+        DetailsVM viewModel = new()
+        {
+            Brand = model.Brand,
+            Model = model.Model,
+            Price = model.Price,
+            Year = model.Year,
+        };
+
+        return View(viewModel);
     }
 
     [HttpGet("create")]

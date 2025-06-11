@@ -9,10 +9,13 @@ Count: <strong>@Model.ClocksItems.Length</strong>
     {
         @*  <a asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id"><li>@item.Brand</li></a> *@
         <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id">
-            <li>@item.Brand</li>
-            @if (User.IsInRole("Administrator")){
+        <li>
+            <a asp-controller="Clocks" asp-action="Details" asp-route-id="@item.Id">@item.Brand</a>             @if (User.IsInRole("Administrator"))
+                {
                 <input type="submit" value="Delete" />
-            }
+                }
+        </li>
+
         </form>
     }
 
