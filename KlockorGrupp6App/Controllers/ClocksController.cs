@@ -37,7 +37,11 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
     {
         return View();
     }
-
+    [HttpGet("delete")]
+    public IActionResult Delete()
+    {
+        return View();
+    }
     [HttpPost("create")]
     public async Task<IActionResult> Create(CreateVM viewModel)
     {
