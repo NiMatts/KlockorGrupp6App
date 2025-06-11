@@ -1,12 +1,14 @@
-﻿using KlockorGrupp6App.Web.Views.Klockor;
-using KlockorGrupp6App.Application.Clocks.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using KlockorGrupp6App.Domain;
+﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Application.Clocks.Services;
+using KlockorGrupp6App.Domain;
+using KlockorGrupp6App.Infrastructure.Persistance;
+using KlockorGrupp6App.Web.Views.Klockor;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KlockorGrupp6App.Web.Controllers;
 
-public class ClocksController(IClockService service) : Controller
+public class ClocksController(IClockService service, UserManager<ApplicationUser> userManager) : Controller
 {
     [HttpGet("")]
     public IActionResult Index()
@@ -37,10 +39,12 @@ public class ClocksController(IClockService service) : Controller
     }
 
     [HttpPost("create")]
-    public IActionResult Create(CreateVM viewModel)
+    public async Task<IActionResult> Create(CreateVM viewModel)
     {
         if (!ModelState.IsValid)
             return View();
+
+        var user = await userManager.FindByEmailAsync(User.Identity.Name);
 
         var clock = new Clock
         {
@@ -48,6 +52,7 @@ public class ClocksController(IClockService service) : Controller
             Model = viewModel.Model,
             Price = viewModel.Price,
             Year = viewModel.Year,
+            CreatedByUserID = user.Id
         };
 
         service.Add(clock);
