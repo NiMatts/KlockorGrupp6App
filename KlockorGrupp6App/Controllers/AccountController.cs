@@ -4,9 +4,11 @@ using KlockorGrupp6App.Application.Dtos;
 using KlockorGrupp6App.Web.Views.Account;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.AspNetCore.Identity;
+using KlockorGrupp6App.Infrastructure.Persistance;
 namespace KlockorGrupp6App.Web.Controllers;
 
-public class AccountController(IUserService userService) : Controller
+public class AccountController(IUserService userService, UserManager<ApplicationUser> userManager) : Controller
 {
     //[HttpGet("")]
     [HttpGet("members")]
@@ -15,12 +17,19 @@ public class AccountController(IUserService userService) : Controller
     {
         return View();
     }
-    //Implementera isAdmin i inloggad 
+
     [HttpGet("admin")]
     [Authorize(Roles = "Administrator")]
-    public IActionResult Admin()
+    public async Task <IActionResult> Admin()
     {
-        return View();
+        
+        var user = await userManager.GetUserAsync(User);
+        var model = new AdminVM
+        {
+            Username = user.Email
+        };
+   
+        return View(model);
     }
 
     [HttpGet("register")]
@@ -34,7 +43,7 @@ public class AccountController(IUserService userService) : Controller
     {
         if (!ModelState.IsValid)
             return View();
-
+        
         // Try to register user
         var userDto = new UserProfileDto(viewModel.Email, viewModel.FirstName, viewModel.LastName);
         var result = await userService.CreateUserAsync(userDto, viewModel.Password,viewModel.isAdmin);
@@ -60,7 +69,7 @@ public class AccountController(IUserService userService) : Controller
     {
         if (!ModelState.IsValid)
             return View();
-
+     
         // Check if credentials is valid (and set auth cookie)
         var result = await userService.SignInAsync(viewModel.Username, viewModel.Password);
         if (!result.Succeeded)
@@ -69,9 +78,15 @@ public class AccountController(IUserService userService) : Controller
             ModelState.AddModelError(string.Empty, result.ErrorMessage!);
             return View();
         }
+        var user = await userManager.FindByEmailAsync(viewModel.Username);
+        var roles = await userManager.GetRolesAsync(user);
 
+        if (roles.Contains("Administrator"))
+            return RedirectToAction(nameof(Admin));
+        else
+            return RedirectToAction("Index", "Clocks");
         // Redirect user
-        return RedirectToAction(nameof(Admin));
+        //return RedirectToAction(nameof(Admin));
     }
 
     [HttpGet("logout")]

@@ -24,7 +24,7 @@ namespace KlockorGrupp6App.Web
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
-                //options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireNonAlphanumeric = true;
             })
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
@@ -41,7 +41,8 @@ namespace KlockorGrupp6App.Web
             var connString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApplicationContext>(o => o.UseSqlServer(connString));
             var app = builder.Build();
-
+            
+            //app.UseAuthentication(); //test morgon
             app.UseAuthorization();
 
             app.MapControllers();
