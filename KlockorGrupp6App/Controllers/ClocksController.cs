@@ -8,7 +8,7 @@ public class ClocksController(IClockService service) : Controller
 {
     [HttpGet("")]
     public IActionResult Index()
-    {
+    { 
         var model = service.GetAll();
         var viewModel = new IndexVM()
         {
