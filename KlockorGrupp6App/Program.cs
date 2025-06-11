@@ -6,6 +6,7 @@ using KlockorGrupp6App.Infrastructure.Persistance.Repositories;
 using KlockorGrupp6App.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using KlockorGrupp6App.Application;
 
 namespace KlockorGrupp6App.Web
 {
@@ -19,6 +20,7 @@ namespace KlockorGrupp6App.Web
             builder.Services.AddScoped<IClockRepository, ClockRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
