@@ -80,7 +80,7 @@ public class AccountController(IUserService userService, UserManager<Application
         }
         var user = await userManager.FindByEmailAsync(viewModel.Username);
         var roles = await userManager.GetRolesAsync(user);
-
+        
         if (roles.Contains("Administrator"))
             return RedirectToAction(nameof(Admin));
         else
