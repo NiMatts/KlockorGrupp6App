@@ -8,4 +8,5 @@ public interface IClockService
     Clock[] GetAll();
     Clock[]? GetAllByUserId(string id);
     Clock? GetById(int id);
+    void Remove(Clock clock);
 }

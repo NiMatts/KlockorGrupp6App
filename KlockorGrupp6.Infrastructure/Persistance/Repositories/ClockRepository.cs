@@ -18,9 +18,14 @@ namespace KlockorGrupp6App.Infrastructure.Persistance.Repositories
             
             //context.Clock.Id = clocks.Count < 0 ? 1 : clocks.Max(e => e.Id) + 1;
             context.Clocks.Add(clock);
-            context.SaveChanges();
+            //context.SaveChangesAsync();
         }
+        public void Remove(Clock clock)
+        {
 
+            //context.Clock.Id = clocks.Count < 0 ? 1 : clocks.Max(e => e.Id) + 1;
+            context.Clocks.Remove(clock);
+        }
 
         // Collection expression syntax, introduced in C# 12.
         public Clock[] GetAll() => [.. context.Clocks.OrderBy(c => c.Brand)];
@@ -37,9 +42,5 @@ namespace KlockorGrupp6App.Infrastructure.Persistance.Repositories
         public Clock GetById(int id) => context.Clocks
             .Single(e => e.Id == id);
 
-        public void Delete(int id)
-        {
-
-        }
     }
 }

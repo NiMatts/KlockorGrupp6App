@@ -26,6 +26,7 @@ public class AccountController(IUserService userService, UserManager<Application
             {
                 Brand = c.Brand,
                 Model = c.Model,
+                Id = c.Id,
             }).ToArray()
         };
 

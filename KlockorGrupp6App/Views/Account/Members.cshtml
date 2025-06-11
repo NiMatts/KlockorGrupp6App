@@ -8,7 +8,10 @@
     <ol>
         @foreach (var item in Model.ClocksItems)
         {
+            <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id">
             <li>@item.Brand</li>
+            <input type="submit" value="Delete" />  
+            </form>
         }
     </ol>
     

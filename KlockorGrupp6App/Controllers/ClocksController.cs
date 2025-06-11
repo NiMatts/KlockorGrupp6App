@@ -3,6 +3,7 @@ using KlockorGrupp6App.Application.Clocks.Services;
 using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Web.Views.Klockor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
             {
                 Brand = c.Brand,
                 Model = c.Model,
+                Id = c.Id,
             }).ToArray()
         };
 
@@ -37,10 +39,22 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
     {
         return View();
     }
-    [HttpGet("delete")]
-    public IActionResult Delete()
+
+    //[HttpGet("delete/{id}")]
+    //[Authorize]
+    //public IActionResult Delete(int id)
+    //{
+    //    var clock = service.GetById(id);
+    //    service.Remove(clock);
+    //    return RedirectToAction(nameof(Index));
+    //}
+    [HttpPost("delete")]
+    [Authorize]
+    public IActionResult Delete(int id)
     {
-        return View();
+        var clock = service.GetById(id);
+        service.Remove(clock);
+        return RedirectToAction(nameof(Index));
     }
     [HttpPost("create")]
     public async Task<IActionResult> Create(CreateVM viewModel)

@@ -27,7 +27,11 @@ public class ClockService(IUnitOfWork unitOfWork) : IClockService
         unitOfWork.Clocks.Add(clock);
         unitOfWork.PersistAllAsync();
     }
-
+    public void Remove(Clock clock)
+    {
+        unitOfWork.Clocks.Remove(clock);
+        unitOfWork.PersistAllAsync();
+    }
     public Clock[] GetAll()
     {
         return unitOfWork.Clocks.GetAll();
