@@ -47,6 +47,9 @@ namespace KlockorGrupp6App.Terminal
             //IdentityUserService identityUserService = new(userManager, signInManager, roleManager);
             //userService = new(identityUserService);
             await ListAllClocksAsync();
+
+
+            IdentityUserService userService = new IdentityUserService();
         }
         private static async Task ListAllClocksAsync()
         {
