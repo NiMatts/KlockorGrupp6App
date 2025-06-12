@@ -9,7 +9,7 @@
         @foreach (var item in Model.ClocksItems)
         {
             <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id">
-            <li>@item.Brand</li>
+            <li><a asp-controller="Clocks" asp-action="Details" asp-route-id="@item.Id">@item.Brand</a></li>
             <input type="submit" value="Delete" />  
             </form>
         }

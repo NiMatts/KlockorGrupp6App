@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using Microsoft.AspNetCore.Identity;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
-using KlockorGrupp6App.Web.Views.Klockor;
 namespace KlockorGrupp6App.Web.Controllers;
 
 public class AccountController(IUserService userService, UserManager<ApplicationUser> userManager, IClockService clockService) : Controller
@@ -19,15 +17,15 @@ public class AccountController(IUserService userService, UserManager<Application
     public async Task <IActionResult> Members()
     {
         var user = await userManager.FindByEmailAsync(User.Identity.Name);
-        var model = clockService.GetAllByUserId(user.Id);
+        var model = await clockService.GetAllByUserIdAsync(user.Id);
         var viewModel = new MembersVM()
         {
-            ClocksItems = model.Select(c => new MembersVM.ClocksDataVM()
+            ClocksItems = [.. model.Select(c => new MembersVM.ClocksDataVM()
             {
                 Brand = c.Brand,
                 Model = c.Model,
                 Id = c.Id,
-            }).ToArray()
+            })]
         };
 
         return View(viewModel);
@@ -38,12 +36,8 @@ public class AccountController(IUserService userService, UserManager<Application
     [Authorize(Roles = "Administrator")]
     public async Task <IActionResult> Admin()
     {
-        await Task.Delay(2000);
-        var user = await userManager.GetUserAsync(User);
-        var model = new AdminVM
-        {
-            Username = user.Email
-        };
+        _ = await userManager.GetUserAsync(User);
+
         return View();
     }
 
@@ -100,9 +94,6 @@ public class AccountController(IUserService userService, UserManager<Application
             return RedirectToAction(nameof(Admin));
         else
             return RedirectToAction(nameof(Members));
-            //return RedirectToAction("Index", "Clocks");
-        // Redirect user
-        //return RedirectToAction(nameof(Admin));
     }
 
     [HttpGet("logout")]

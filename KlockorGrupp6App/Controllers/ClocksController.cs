@@ -1,5 +1,4 @@
 ﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
-using KlockorGrupp6App.Application.Clocks.Services;
 using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Web.Views.Klockor;
@@ -12,26 +11,26 @@ namespace KlockorGrupp6App.Web.Controllers;
 public class ClocksController(IClockService service, UserManager<ApplicationUser> userManager) : Controller
 {
     [HttpGet("")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     { 
-        var model = service.GetAll();
+        var model = await service.GetAllAsync();
         var viewModel = new IndexVM()
         {
-            ClocksItems = model.Select(c => new IndexVM.ClocksDataVM()
+            ClocksItems = [.. model.Select(c => new IndexVM.ClocksDataVM()
             {
                 Brand = c.Brand,
                 Model = c.Model,
                 Id = c.Id,
-            }).ToArray()
+            })]
         };
 
         return View(viewModel);
     }
 
     [HttpGet("details/{id}")]
-    public IActionResult Details(int id)
+    public async Task<IActionResult> Details(int id)
     {
-        var model = service.GetById(id);
+        var model = await service.GetByIdAsync(id);
 
         DetailsVM viewModel = new()
         {
@@ -50,22 +49,15 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
         return View();
     }
 
-    //[HttpGet("delete/{id}")]
-    //[Authorize]
-    //public IActionResult Delete(int id)
-    //{
-    //    var clock = service.GetById(id);
-    //    service.Remove(clock);
-    //    return RedirectToAction(nameof(Index));
-    //}
     [HttpPost("delete")]
     [Authorize]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var clock = service.GetById(id);
-        service.Remove(clock);
+        var clock = await service.GetByIdAsync(id);
+        await service.RemoveAsync(clock);
         return RedirectToAction(nameof(Index));
     }
+
     [HttpPost("create")]
     public async Task<IActionResult> Create(CreateVM viewModel)
     {
@@ -83,7 +75,7 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
             CreatedByUserID = user.Id
         };
 
-        service.Add(clock);
+        await service.AddAsync(clock);
 
         return RedirectToAction(nameof(Index));
     }
