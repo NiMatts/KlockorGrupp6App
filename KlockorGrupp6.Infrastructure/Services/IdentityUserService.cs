@@ -66,13 +66,11 @@ namespace KlockorGrupp6App.Infrastructure.Services
 
         public async Task<UserProfileDto[]> GetAllUsersAsync()
         {
-
             var users = await userManager.Users
                 .Select(u => new UserProfileDto(u.Email, u.FirstName, u.LastName))
                 .ToListAsync();
 
             return users.ToArray();
         }
-        
     }
 }
