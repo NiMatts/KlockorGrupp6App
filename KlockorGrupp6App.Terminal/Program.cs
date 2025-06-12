@@ -37,7 +37,7 @@ namespace KlockorGrupp6App.Terminal
         private static async Task ListAllClocksAsync()
         {
             foreach (var item in await clockService.GetAllAsync())
-                Console.WriteLine(item.ToString);
+                Console.WriteLine($"{item.Brand}");
 
             Console.WriteLine("----------------------------");
         }
