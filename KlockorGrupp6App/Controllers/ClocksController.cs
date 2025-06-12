@@ -16,12 +16,12 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
         var model = await service.GetAllAsync();
         var viewModel = new IndexVM()
         {
-            ClocksItems = model.Select(c => new IndexVM.ClocksDataVM()
+            ClocksItems = [.. model.Select(c => new IndexVM.ClocksDataVM()
             {
                 Brand = c.Brand,
                 Model = c.Model,
                 Id = c.Id,
-            }).ToArray()
+            })]
         };
 
         return View(viewModel);

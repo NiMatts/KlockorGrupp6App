@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KlockorGrupp6App.Tests.WebTests
+namespace KlockorGrupp6App.Tests.Web
 {
     public class ClocksControllerTests
     {
@@ -35,7 +35,7 @@ namespace KlockorGrupp6App.Tests.WebTests
 
         [Trait("ClocksController", "Index")]
         [Fact]
-        public void Index_ShouldReturnViewWithCorrectData()
+        public async Task Index_ShouldReturnViewWithCorrectData()
         {
             // Arrange: Creating a list with 2 clock-objects
             var clocks = new[]
@@ -45,10 +45,10 @@ namespace KlockorGrupp6App.Tests.WebTests
             };
 
             // Setting up the mock service so when GetAll() is called, it will "pretend" to return the clocks list we created above.
-            _mockClockService.Setup(s => s.GetAll()).Returns(clocks);
+            _mockClockService.Setup(s => s.GetAllAsync()).ReturnsAsync(clocks);
 
             // Act: Calling the Index method on the controller
-            var result = _controller.Index() as ViewResult;
+            var result = await _controller.Index() as ViewResult;
 
             // Assert
             Assert.NotNull(result); // Checking that the result is not null

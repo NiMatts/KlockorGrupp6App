@@ -6,7 +6,7 @@ namespace KlockorGrupp6App.Application.Clocks.Interfaces
     {
         Task AddAsync(Clock clock);
         Task<Clock[]> GetAllAsync();
-        Task<Clock[]?> GetAllByUserId(string id);
+        Task<Clock[]?> GetAllByUserIdAsync(string id);
         Task<Clock?> GetByIdAsync(int id);
         Task RemoveAsync(Clock clock);
     }

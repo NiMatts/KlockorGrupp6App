@@ -31,7 +31,7 @@ public class ClockService(IUnitOfWork unitOfWork) : IClockService
     {
         return await unitOfWork.Clocks.GetByIdAsync(id);
     }
-    public async Task<Clock[]?> GetAllByUserId(string id)
+    public async Task<Clock[]?> GetAllByUserIdAsync(string id)
     {
         return await unitOfWork.Clocks.GetAllByUserIdAsync(id);
     }

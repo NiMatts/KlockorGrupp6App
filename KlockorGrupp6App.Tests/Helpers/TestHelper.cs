@@ -1,16 +1,20 @@
-﻿using KlockorGrupp6App.Application;
+﻿using KlockorGrupp6App.Tests.Web;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Application.Clocks.Services;
+using KlockorGrupp6App.Application;
+using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
-using KlockorGrupp6App.Tests.Web;
 using KlockorGrupp6App.Web.Controllers;
+using KlockorGrupp6App.Web.Views.Klockor;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KlockorGrupp6App.Tests.Application;
+using KlockorGrupp6App.Tests;
+using KlockorGrupp6App.Application.Users;
 
 namespace KlockorGrupp6App.Tests.Helpers
 {
@@ -34,14 +38,14 @@ namespace KlockorGrupp6App.Tests.Helpers
             var mockStore = new Mock<IUserStore<ApplicationUser>>();
             return new Mock<UserManager<ApplicationUser>>(
                 mockStore.Object,   // IUserStore<ApplicationUser> store
-                null,               // IOptions<IdentityOptions> 
-                null,               // IPasswordHasher<ApplicationUser>  
-                null,               // IEnumerable<IPasswordHasher<ApplicationUser>>  
-                null,               // IEnumerable<IPasswordValidator<ApplicationUser>>  
-                null,               // IEnumerable<IUserValidator<ApplicationUser>>  
-                null,               // ILookupNormalizer  
-                null,               // IServiceProvider  
-                null                // ILogger<UserManager<ApplicationUser>> 
+                default!,               // IOptions<IdentityOptions> 
+                default!,               // IPasswordHasher<ApplicationUser>  
+                default!,               // IEnumerable<IPasswordHasher<ApplicationUser>>  
+                default!,               // IEnumerable<IPasswordValidator<ApplicationUser>>  
+                default!,               // IEnumerable<IUserValidator<ApplicationUser>>  
+                default!,               // ILookupNormalizer  
+                default!,               // IServiceProvider  
+                default!                // ILogger<UserManager<ApplicationUser>> 
                 );
         }
         
@@ -57,10 +61,18 @@ namespace KlockorGrupp6App.Tests.Helpers
 
         // Creates an AccountController with a mocked UserManager.
         public static AccountController CreateAccountController(
-            out Mock<UserManager<ApplicationUser>> mockUserManager)
+            out Mock<UserManager<ApplicationUser>> mockUserManager,
+            out Mock<IUserService> mockUserService,
+            out Mock<IClockService> mockClockService)
         {
             mockUserManager = CreateMockUserManager();
-            return new AccountController(mockUserManager.Object);
+            mockUserService = new Mock<IUserService>();
+            mockClockService = new Mock<IClockService>();
+
+            return new AccountController(
+                mockUserService.Object,
+                mockUserManager.Object,                
+                mockClockService.Object);
         }
-    }
+    }    
 }
