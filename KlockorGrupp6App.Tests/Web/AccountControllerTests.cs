@@ -63,7 +63,7 @@ namespace KlockorGrupp6App.Tests.Web
             var result = await _controller.Members();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<MembersVM>(viewResult.Model);
+            var model = Assert.IsType<MembersVM>(viewResult.Model);
             Assert.Equal(2, model.ClocksItems.Length);
         }
 
@@ -96,7 +96,7 @@ namespace KlockorGrupp6App.Tests.Web
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<List<AdminVM>>(viewResult.Model);
+            var model = Assert.IsType<List<AdminVM>>(viewResult.Model);
 
             Assert.Equal(2, model.Count); // Two groups for two users
 
