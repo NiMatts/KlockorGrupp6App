@@ -18,8 +18,8 @@ namespace KlockorGrupp6App.Web
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IClockService, ClockService>();
             builder.Services.AddScoped<IClockRepository, ClockRepository>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
+            builder.Services.AddScoped<IUserService, Application.Users.IdentityUserService>();
+            builder.Services.AddScoped<IIdentityUserService, Infrastructure.Services.IdentityUserService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
