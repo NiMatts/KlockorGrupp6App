@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
+using KlockorGrupp6App.Web.Views.Klockor;
 namespace KlockorGrupp6App.Web.Controllers;
 
 public class AccountController(IUserService userService, UserManager<ApplicationUser> userManager, IClockService clockService) : Controller
@@ -36,9 +37,31 @@ public class AccountController(IUserService userService, UserManager<Application
     [Authorize(Roles = "Administrator")]
     public async Task <IActionResult> Admin()
     {
-        _ = await userManager.GetUserAsync(User);
+        var model = await clockService.GetAllAsync();
+        var clocksItems = new List<AdminVM>();
 
-        return View();
+        // Group clocks by user
+        foreach (var group in model.GroupBy(c => c.CreatedByUserID))
+        {
+            var user = await userManager.FindByIdAsync(group.Key);
+
+            var userClocks = group.Select(c => new AdminVM.ClocksDataVM
+            {
+                Owner = user?.Email ?? "Unknown",
+                Brand = c.Brand,
+                Model = c.Model,
+                Id = c.Id
+            }).ToList();
+
+            clocksItems.Add(new AdminVM
+            {
+                UserId = group.Key,
+                UserEmail = user?.Email ?? "Unknown",
+                ClocksItems = userClocks
+            });
+        }
+
+        return View(clocksItems);
     }
 
     [HttpGet("register")]
@@ -87,6 +110,7 @@ public class AccountController(IUserService userService, UserManager<Application
             ModelState.AddModelError(string.Empty, result.ErrorMessage!);
             return View();
         }
+        
         var user = await userManager.FindByEmailAsync(viewModel.Username);
         var roles = await userManager.GetRolesAsync(user);
         

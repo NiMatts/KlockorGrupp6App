@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Klockor";
 }
-<h2>Companies</h2>
+<h2>Watches</h2>
 Count: <strong>@Model.ClocksItems.Length</strong>
 <ol>
     @foreach (var item in Model.ClocksItems)
@@ -10,10 +10,7 @@ Count: <strong>@Model.ClocksItems.Length</strong>
         @*  <a asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id"><li>@item.Brand</li></a> *@
         <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id">
         <li>
-            <a asp-controller="Clocks" asp-action="Details" asp-route-id="@item.Id">@item.Brand</a>             @if (User.IsInRole("Administrator"))
-                {
-                <input type="submit" value="Delete" />
-                }
+            <a asp-controller="Clocks" asp-action="Details" asp-route-id="@item.Id">@item.Brand</a>             
         </li>
 
         </form>

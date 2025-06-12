@@ -1,10 +1,30 @@
-﻿<h3>Admins</h3>
+﻿@model List<AdminVM>
+
 @if (User.Identity!.IsAuthenticated)
 {
     <p>
-       Admin <strong>@User.Identity!.Name</strong>
+        Admin <strong>@User.Identity.Name</strong>!
     </p>
-    
+
+    @foreach (var user in Model)
+    {
+        <p><strong>@user.UserEmail</strong> - Clocks: @user.ClocksItems.Count</p>
+
+        <ol>
+            @foreach (var item in user.ClocksItems)
+            {
+                <li>
+                    <a asp-controller="Clocks" asp-action="Details" asp-route-id="@item.Id">
+                        @item.Brand @item.Model (@item.Owner)
+                    </a>
+                    <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        <input type="submit" value="Delete" />
+                    </form>
+                </li>
+            }
+        </ol>
+    }
+
     <a asp-controller="Account" asp-action="Logout">Sign out</a>
 }
 else
