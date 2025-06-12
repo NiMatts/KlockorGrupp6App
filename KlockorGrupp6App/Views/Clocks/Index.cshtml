@@ -22,8 +22,5 @@ Count: <strong>@Model.ClocksItems.Length</strong>
 </ol>
 @if (User.Identity!.IsAuthenticated)
 {
-    <p>
-        Welcome <strong>@User.Identity!.Name</strong>!
-    </p>
-    <a asp-controller="Clocks" asp-action="Create">create</a>
+    <a asp-controller="Clocks" asp-action="Create">Add Watch</a>
 }

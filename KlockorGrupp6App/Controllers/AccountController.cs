@@ -19,7 +19,7 @@ public class AccountController(IUserService userService, UserManager<Application
     public async Task <IActionResult> Members()
     {
         var user = await userManager.FindByEmailAsync(User.Identity.Name);
-        var model = clockService.GetAllByUserId(user.Id);
+        var model = await clockService.GetAllByUserId(user.Id);
         var viewModel = new MembersVM()
         {
             ClocksItems = model.Select(c => new MembersVM.ClocksDataVM()
@@ -100,9 +100,6 @@ public class AccountController(IUserService userService, UserManager<Application
             return RedirectToAction(nameof(Admin));
         else
             return RedirectToAction(nameof(Members));
-            //return RedirectToAction("Index", "Clocks");
-        // Redirect user
-        //return RedirectToAction(nameof(Admin));
     }
 
     [HttpGet("logout")]

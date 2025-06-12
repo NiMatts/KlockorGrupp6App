@@ -4,10 +4,10 @@ namespace KlockorGrupp6App.Application.Clocks.Interfaces
 {
     public interface IClockRepository
     {
-        void Add(Clock clock);
-        Clock[] GetAll();
-        Clock[] GetAllByUserId(string userId);
-        Clock GetById(int id);
+        Task AddAsync(Clock clock);
+        Task<Clock[]> GetAllAsync();
+        Task<Clock[]> GetAllByUserIdAsync(string userId);
+        Task<Clock> GetByIdAsync(int id);
         void Remove(Clock clock);
     }
 }

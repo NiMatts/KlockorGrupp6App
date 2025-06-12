@@ -1,12 +1,13 @@
 ﻿using KlockorGrupp6App.Domain;
 
-namespace KlockorGrupp6App.Application.Clocks.Interfaces;
-
-public interface IClockService
+namespace KlockorGrupp6App.Application.Clocks.Interfaces
 {
-    void Add(Clock clock);
-    Clock[] GetAll();
-    Clock[]? GetAllByUserId(string id);
-    Clock? GetById(int id);
-    void Remove(Clock clock);
+    public interface IClockService
+    {
+        Task AddAsync(Clock clock);
+        Task<Clock[]> GetAllAsync();
+        Task<Clock[]?> GetAllByUserId(string id);
+        Task<Clock?> GetByIdAsync(int id);
+        Task RemoveAsync(Clock clock);
+    }
 }
