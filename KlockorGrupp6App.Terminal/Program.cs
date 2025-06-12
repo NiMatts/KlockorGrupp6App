@@ -1,8 +1,10 @@
 ﻿using KlockorGrupp6App.Application;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Application.Clocks.Services;
+using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Infrastructure.Persistance.Repositories;
+using KlockorGrupp6App.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
@@ -31,8 +33,11 @@ namespace KlockorGrupp6App.Terminal
             IClockRepository clockRepository = new ClockRepository(context);
             IUnitOfWork unitOfWork = new UnitOfWork(context, clockRepository);
             clockService = new(unitOfWork);
-
+            
             await ListAllClocksAsync();
+
+
+            IdentityUserService userService = new IdentityUserService();
         }
         private static async Task ListAllClocksAsync()
         {

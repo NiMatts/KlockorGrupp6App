@@ -20,5 +20,8 @@ public class UserService(IIdentityUserService identityUserService) : IUserServic
     {
         await identityUserService.SignOutAsync();
     }
-
+    public async Task<UserProfileDto[]> GetAllUsersAsync()
+    {
+       return await identityUserService.GetAllUsersAsync();
+    }
 }
