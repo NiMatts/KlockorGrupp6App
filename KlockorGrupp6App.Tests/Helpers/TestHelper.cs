@@ -1,19 +1,10 @@
-﻿using KlockorGrupp6App.Tests.Web;
-using KlockorGrupp6App.Application.Clocks.Interfaces;
+﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Application.Clocks.Services;
 using KlockorGrupp6App.Application;
-using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Web.Controllers;
-using KlockorGrupp6App.Web.Views.Klockor;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using KlockorGrupp6App.Tests.Application;
-using KlockorGrupp6App.Tests;
 using KlockorGrupp6App.Application.Users;
 
 namespace KlockorGrupp6App.Tests.Helpers

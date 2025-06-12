@@ -1,13 +1,5 @@
-﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
-using KlockorGrupp6App.Application.Clocks.Services;
-using KlockorGrupp6App.Domain;
-using KlockorGrupp6App.Application;
+﻿using KlockorGrupp6App.Domain;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KlockorGrupp6App.Tests.Helpers;
 
 namespace KlockorGrupp6App.Tests.Application
