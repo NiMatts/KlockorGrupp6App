@@ -1,6 +1,7 @@
 ﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
+using KlockorGrupp6App.Tests.Helpers;
 using KlockorGrupp6App.Web.Controllers;
 using KlockorGrupp6App.Web.Views.Klockor;
 using Microsoft.AspNetCore.Identity;
@@ -16,39 +17,19 @@ namespace KlockorGrupp6App.Tests.WebTests
 {
     public class ClocksControllerTests
     {
-        #region [Test Setup]
-        // Mock for IClockService which is used by the controller to access buisness logic realted to clocks
-        private readonly Mock<IClockService> _mockClockService;
-
-        // Mock for UserManager<ApplicationUser>, needed because the controller depends on UserManager to get userinfo
+        #region [Test Setup]        
+        // Mocking dependencies for the controller
+        private readonly Mock<IClockService> _mockClockService;        
         private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
-
-        // The controller we are testing
+        // The controller we're testing
         private readonly ClocksController _controller;
 
         public ClocksControllerTests()
         {
-            // Initializing the clock service so we can control and verify behaviours
-            _mockClockService = new Mock<IClockService>();
-
-            // UserManager is complex so we must mock IUserStore and pass in our mocked.Object into our mocked UserManager
-            var mockStore = new Mock<IUserStore<ApplicationUser>>();
-
-            // Construct a mock UserManager with only the store being set, the rest can be null for unit testing.
-            _mockUserManager = new Mock<UserManager<ApplicationUser>>(
-                mockStore.Object,   // IUserStore<ApplicationUser> store
-                null,               // IOptions<IdentityOptions>
-                null,               // IPasswordHasher<ApplicationUser>
-                null,               // IEnumerable<IUserValidator<ApplicationUser>>s
-                null,               // IEnumerable<IPasswordValidator<ApplicationUser>>
-                null,               // ILookupNormalizer
-                null,               // IdentityErrorDescriber
-                null,               // IServiceProvider
-                null                // ILogger<UserManager<ApplicationUser>>
-                );
-
-            // Instantiate the controller under test, injecting the mocked dependencies
-            _controller = new ClocksController(_mockClockService.Object, _mockUserManager.Object);
+            // Fetching the mocked ClockService and UserManager using the TestHelper class
+            _controller = TestHelper.CreateClocksController(
+                out _mockClockService, 
+                out _mockUserManager);
         }
         #endregion
 

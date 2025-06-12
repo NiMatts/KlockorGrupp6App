@@ -2,6 +2,7 @@
 using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Application.Clocks.Services;
 using KlockorGrupp6App.Infrastructure.Persistance;
+using KlockorGrupp6App.Tests.Web;
 using KlockorGrupp6App.Web.Controllers;
 using Microsoft.AspNetCore.Identity;
 using Moq;
@@ -16,7 +17,9 @@ namespace KlockorGrupp6App.Tests.Helpers
     public static class TestHelper
     {        
         // Creates a ClockService with mocked IClockRepository and IUnitOfWork.        
-        public static ClockService CreateClockServiceWithMocks(out Mock<IClockRepository> mockClockRepo, out Mock<IUnitOfWork> mockUnit)
+        public static ClockService CreateClockServiceWithMocks(
+            out Mock<IClockRepository> mockClockRepo, 
+            out Mock<IUnitOfWork> mockUnit)
         {
             mockClockRepo = new Mock<IClockRepository>();
             mockUnit = new Mock<IUnitOfWork>();
@@ -50,6 +53,14 @@ namespace KlockorGrupp6App.Tests.Helpers
             mockClockService = new Mock<IClockService>();
             mockUserManager = CreateMockUserManager();
             return new ClocksController(mockClockService.Object, mockUserManager.Object);
+        }
+
+        // Creates an AccountController with a mocked UserManager.
+        public static AccountController CreateAccountController(
+            out Mock<UserManager<ApplicationUser>> mockUserManager)
+        {
+            mockUserManager = CreateMockUserManager();
+            return new AccountController(mockUserManager.Object);
         }
     }
 }
