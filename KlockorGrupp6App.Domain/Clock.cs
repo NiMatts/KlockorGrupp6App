@@ -10,7 +10,7 @@ public class Clock
 
     public string CreatedByUserID { get; set; } = null!;
 
-    public string ToSring()
+    public override string ToString()
     {
         return $"{Brand} {Model} Price: {Price} ";
     }
