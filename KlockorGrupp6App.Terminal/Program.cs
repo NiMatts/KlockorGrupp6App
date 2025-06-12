@@ -5,6 +5,7 @@ using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Infrastructure.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 
 namespace KlockorGrupp6App.Terminal
@@ -12,10 +13,10 @@ namespace KlockorGrupp6App.Terminal
     internal class Program
     {
         static ClockService clockService;
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             string connectionString;
-            
+
             var builder = new ConfigurationBuilder();
             builder.AddJsonFile("appsettings.json", false);
             var app = builder.Build();
@@ -31,15 +32,15 @@ namespace KlockorGrupp6App.Terminal
             IUnitOfWork unitOfWork = new UnitOfWork(context, clockRepository);
             clockService = new(unitOfWork);
 
-            //new ClockRepository(context)
-
-            private static async Task ListAllClocksAsync()
-        {
-            foreach (var item in await clockService.Ge)
-            {
-
-            }
+            await ListAllClocksAsync();
         }
+        private static async Task ListAllClocksAsync()
+        {
+            foreach (var item in await clockService.GetAllAsync())
+                Console.WriteLine(item.ToString);
+
+            Console.WriteLine("----------------------------");
         }
     }
 }
+
