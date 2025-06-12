@@ -2,6 +2,7 @@
 using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,19 +38,19 @@ namespace KlockorGrupp6App.Infrastructure.Services
             if (isAdmin)
             {
                 const string RoleName = "Administrator";
-               // ApplicationUser user = await userManager.FindByIdAsync(userId);
+                // ApplicationUser user = await userManager.FindByIdAsync(userId);
                 // Skapa en ny roll
                 if (!await roleManager.RoleExistsAsync(RoleName))
                     await roleManager.CreateAsync(new IdentityRole(RoleName));
                 // Lägg till en användare till en roll
-                    await userManager.AddToRoleAsync(appUser, RoleName);
+                await userManager.AddToRoleAsync(appUser, RoleName);
                 // Kontrollera huruvida en användare ingår i en roll
                 bool isUserInRole = await userManager.IsInRoleAsync(appUser, RoleName);
                 if (isUserInRole)
                     Console.WriteLine("Role configuration succeeded");
             }
 
-                return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
+            return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
         }
 
         public async Task<UserResultDto> SignInAsync(string email, string password)
@@ -62,5 +63,16 @@ namespace KlockorGrupp6App.Infrastructure.Services
         {
             await signInManager.SignOutAsync();
         }
+
+        public async Task<UserProfileDto[]> GetAllUsersAsync()
+        {
+
+            var users = await userManager.Users
+                .Select(u => new UserProfileDto(u.Email, u.FirstName, u.LastName))
+                .ToListAsync();
+
+            return users.ToArray();
+        }
+        
     }
 }
