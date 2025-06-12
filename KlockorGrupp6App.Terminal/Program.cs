@@ -3,8 +3,6 @@ using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Threading.Tasks;
 
 namespace KlockorGrupp6App.Terminal
 {
