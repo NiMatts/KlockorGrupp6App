@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
@@ -11,42 +12,27 @@ namespace KlockorGrupp6App.Application.Clocks.Services;
 //public class ClockService(IClockRepository clockRepository) : IClockService
 public class ClockService(IUnitOfWork unitOfWork) : IClockService
 {
-    List<Clock> clocks = new List<Clock>
-        {
-            new Clock { Id = 1, Brand = "Rolex", Model = "Submariner", Price = 98000m, Year = new DateTime(2022, 1, 1) },
-            new Clock { Id = 2, Brand = "Omega", Model = "Speedmaster", Price = 67000m, Year = new DateTime(2021, 1, 1) },
-            new Clock { Id = 3, Brand = "Tag Heuer", Model = "Carrera", Price = 42000m, Year = new DateTime(2023, 1, 1) },
-            new Clock { Id = 4, Brand = "Seiko", Model = "Presage", Price = 8900m, Year = new DateTime(2020, 1, 1) },
-            new Clock { Id = 5, Brand = "Casio", Model = "G-Shock", Price = 1500m, Year = new DateTime(2019, 1, 1) }
-        };
-
-    public void Add(Clock clock)
+    public async Task AddAsync(Clock clock)
     {
-        //var userId = userService.GetCurrentUserId();
-        //clock.CreatedByUserId = userId;
-        unitOfWork.Clocks.Add(clock);
-        unitOfWork.PersistAllAsync();
+        await unitOfWork.Clocks.AddAsync(clock);
+        await unitOfWork.PersistAllAsync();
     }
-    public void Remove(Clock clock)
+    public async Task RemoveAsync(Clock clock)
     {
         unitOfWork.Clocks.Remove(clock);
-        unitOfWork.PersistAllAsync();
+        await unitOfWork.PersistAllAsync();
     }
-    public Clock[] GetAll()
+    public async Task<Clock[]> GetAllAsync()
     {
-        return unitOfWork.Clocks.GetAll();
+        return await unitOfWork.Clocks.GetAllAsync();
     }
 
-    public Clock? GetById(int id)
+    public async Task<Clock?> GetByIdAsync(int id)
     {
-        return unitOfWork.Clocks.GetById(id);
+        return await unitOfWork.Clocks.GetByIdAsync(id);
     }
-    public Clock[]? GetAllByUserId(string id)
+    public async Task<Clock[]?> GetAllByUserId(string id)
     {
-        return unitOfWork.Clocks.GetAllByUserId(id);
+        return await unitOfWork.Clocks.GetAllByUserIdAsync(id);
     }
-    //public void Delete(int id)
-    //{
-
-    //}
 }
