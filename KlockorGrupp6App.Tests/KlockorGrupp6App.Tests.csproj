@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="WebTests\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\KlockorGrupp6.Infrastructure\KlockorGrupp6App.Infrastructure.csproj" />
     <ProjectReference Include="..\KlockorGrupp6App.Application\KlockorGrupp6App.Application.csproj" />
     <ProjectReference Include="..\KlockorGrupp6App.Domain\KlockorGrupp6App.Domain.csproj" />
