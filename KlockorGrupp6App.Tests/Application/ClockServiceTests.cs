@@ -91,7 +91,7 @@ namespace KlockorGrupp6App.Tests.Application
 
             var result = await service.GetAllByUserIdAsync(userId);
 
-            Assert.Equal(2, result.Length);
+            Assert.Equal(2, result!.Length);
         }
 
         [Trait("ClocksService", "GetAllByUserId")]
