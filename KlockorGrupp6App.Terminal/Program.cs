@@ -24,8 +24,13 @@ namespace KlockorGrupp6App.Terminal
 
         private static async Task RunAsync(IServiceProvider services)
         {
+            await GetAllClocksAsync(services);
+            await GetAllUserssAsync(services);
+        }
+
+        private static async Task GetAllClocksAsync(IServiceProvider services)
+        {
             var clockService = services.GetRequiredService<IClockService>();
-            var userService = services.GetRequiredService<IUserService>();
 
             var clocks = await clockService.GetAllAsync();
 
@@ -34,7 +39,16 @@ namespace KlockorGrupp6App.Terminal
                 Console.WriteLine(clock.ToString());
             }
         }
+        private static async Task GetAllUserssAsync(IServiceProvider services)
+        {
+            var userService = services.GetRequiredService<IIdentityUserService>();
+            var users = await userService.GetAllUsersAsync();
 
+            foreach (var user in users)
+            {
+                Console.WriteLine(user.ToString());
+            }
+        }
 
     }
 }
