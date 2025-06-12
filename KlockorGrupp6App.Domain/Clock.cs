@@ -9,5 +9,10 @@ public class Clock
     public DateTime Year { get; set; }
 
     public string CreatedByUserID { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return $"{Brand} {Model} Price: {Price} ";
+    }
 }
 
