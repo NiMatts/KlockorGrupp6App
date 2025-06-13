@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using KlockorGrupp6App.Application.Clocks.Interfaces;
+﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Domain;
 
 namespace KlockorGrupp6App.Application.Clocks.Services;
 
-//public class ClockService(IClockRepository clockRepository) : IClockService
 public class ClockService(IUnitOfWork unitOfWork) : IClockService
 {
     public async Task AddAsync(Clock clock)

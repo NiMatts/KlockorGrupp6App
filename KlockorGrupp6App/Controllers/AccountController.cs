@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Application.Clocks.Interfaces;
-using KlockorGrupp6App.Web.Views.Klockor;
+
 namespace KlockorGrupp6App.Web.Controllers;
 
 public class AccountController(IUserService userService, UserManager<ApplicationUser> userManager, IClockService clockService) : Controller

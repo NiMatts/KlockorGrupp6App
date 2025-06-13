@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KlockorGrupp6App.Application.Dtos;
+﻿using KlockorGrupp6App.Application.Dtos;
 
 namespace KlockorGrupp6App.Application.Users;
 

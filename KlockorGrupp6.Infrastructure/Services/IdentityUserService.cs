@@ -3,11 +3,6 @@ using KlockorGrupp6App.Application.Users;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KlockorGrupp6App.Infrastructure.Services
 {
