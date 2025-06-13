@@ -1,4 +1,8 @@
 ﻿@model LoginVM
+@{
+    ViewBag.Title = "Log in";
+}
+
 
 <h3>Log In</h3>
 <form asp-controller="Account" asp-action="Login">
@@ -13,3 +17,16 @@
     <input type="submit" value="Log In" />
     <div asp-validation-summary="All"></div>
 </form>
+
+@section scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"
+            asp-fallback-src="~/Scripts/jquery-validate/jquery.validate.min.js"
+            asp-fallback-test="$.validator">
+    </script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/Scripts/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="$.validator.unobtrusive">
+    </script>
+}

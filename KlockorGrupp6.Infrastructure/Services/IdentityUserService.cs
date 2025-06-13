@@ -33,12 +33,14 @@ namespace KlockorGrupp6App.Infrastructure.Services
             if (isAdmin)
             {
                 const string RoleName = "Administrator";
-                // ApplicationUser user = await userManager.FindByIdAsync(userId);
+                
                 // Skapa en ny roll
                 if (!await roleManager.RoleExistsAsync(RoleName))
                     await roleManager.CreateAsync(new IdentityRole(RoleName));
+
                 // Lägg till en användare till en roll
                 await userManager.AddToRoleAsync(appUser, RoleName);
+
                 // Kontrollera huruvida en användare ingår i en roll
                 bool isUserInRole = await userManager.IsInRoleAsync(appUser, RoleName);
                 if (isUserInRole)

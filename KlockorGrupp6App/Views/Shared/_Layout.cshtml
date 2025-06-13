@@ -6,7 +6,8 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
 </head>
-<body>
+<body>  
+
     <nav>
         @if (User.IsInRole("Administrator"))
         {
@@ -22,7 +23,9 @@
             <a asp-controller="Account" asp-action="LogIn">Login</a>
         }
     </nav>
-    <h1>KlockorGrupp6App</h1>
+
+    <h1 style="padding: 20px; text-align: center;">Watchmakers Dream</h1>
+    
     <div>
         @RenderBody()
     </div>
