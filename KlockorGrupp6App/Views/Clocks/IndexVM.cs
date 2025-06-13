@@ -1,4 +1,4 @@
-﻿namespace KlockorGrupp6App.Web.Views.Klockor
+﻿namespace KlockorGrupp6App.Web.Views.Clocks
 {
     public class IndexVM
     {

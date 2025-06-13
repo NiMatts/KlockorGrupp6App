@@ -1,7 +1,7 @@
 ﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
 using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
-using KlockorGrupp6App.Web.Views.Klockor;
+using KlockorGrupp6App.Web.Views.Clocks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

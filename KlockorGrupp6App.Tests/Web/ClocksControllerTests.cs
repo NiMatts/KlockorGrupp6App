@@ -3,7 +3,7 @@ using KlockorGrupp6App.Domain;
 using KlockorGrupp6App.Infrastructure.Persistance;
 using KlockorGrupp6App.Tests.Helpers;
 using KlockorGrupp6App.Web.Controllers;
-using KlockorGrupp6App.Web.Views.Klockor;
+using KlockorGrupp6App.Web.Views.Clocks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -100,7 +100,7 @@ namespace KlockorGrupp6App.Tests.Web
                 Brand = "Seiko",
                 Model = "Prospex",
                 Price = 150000,
-                Year = new DateTime(2020, 1, 1)
+                Year = 2020
             };
 
             mockUserManager.Setup(u => u.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(user);
@@ -137,7 +137,7 @@ namespace KlockorGrupp6App.Tests.Web
                 Brand = "Seiko", 
                 Model = "Prospex", 
                 Price = 1500, 
-                Year = new DateTime(2020, 1, 1)
+                Year = 2020
             };
 
             var result = await controller.Create(viewModel);
