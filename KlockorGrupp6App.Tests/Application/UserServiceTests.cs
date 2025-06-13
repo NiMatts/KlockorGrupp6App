@@ -24,13 +24,14 @@ namespace KlockorGrupp6App.Tests.Application
                 out _mockUnitOfWork);
         }
 
+
         [Trait("UserService", "CreateUser")]
         [Fact]
         public async Task CreateUserAsync_ReturnsUserResult()
         {
             var userDto = new UserProfileDto(
-                "Test@test.com", 
-                "Test", 
+                "Test@test.com",
+                "Test",
                 "User"
                 );
 
@@ -44,10 +45,53 @@ namespace KlockorGrupp6App.Tests.Application
             Assert.Equal(expected, result);
         }
 
+
+        [Trait("UserService", "SignIn")]
+        [Fact]
+        public async Task SignInAsync_ReturnsUserResult()
+        {
+            var expected = new UserResultDto(null);
+
+            _mockIdentityUserService.Setup(s => s.SignInAsync("test@example.com", "Qwerty!"))
+                .ReturnsAsync(expected);
+
+            var result = await _userService.SignInAsync("test@example.com", "Qwerty!");
+
+            Assert.Equal(expected, result);
+        }
+
+
         [Trait("UserService", "SignOut")]
         [Fact]
         public async Task SignOutAsync_CallsSignOut()
         {
+            _mockIdentityUserService.Setup(s => s.SignOutAsync())
+                .Returns(Task.CompletedTask)
+                .Verifiable();
+
+            await _userService.SignOutAsync();
+
+            _mockIdentityUserService.Verify(s => s.SignOutAsync(), Times.Once);
+        }
+
+
+        [Trait("UserService", "GetAllUsers")]
+        [Fact]
+        public async Task GetAllUsersAsync_ReturnsUsers()
+        {
+            var users = new[]
+            {
+                new UserProfileDto("test@example.com", "Ben", "Dover"),
+                new UserProfileDto("example@test.com", "Mike", "Hunt")
+            };
+
+            _mockIdentityUserService.Setup(s => s.GetAllUsersAsync())
+                .ReturnsAsync(users);
+
+            var result = await _userService.GetAllUsersAsync();
+
+            Assert.Equal(2, result.Length);
+            Assert.Equal("test@example.com", result[0].Email);
 
         }
     }
