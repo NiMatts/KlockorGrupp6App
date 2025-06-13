@@ -8,6 +8,6 @@ namespace KlockorGrupp6App.Infrastructure.Persistance
         public string FirstName{ get; set; } = null!;
         public string LastName { get; set; } = null!;
 
-        public ICollection<Clock> Clocks { get; set; }
+        public ICollection<Clock>? Clocks { get; set; }
     }
 }
