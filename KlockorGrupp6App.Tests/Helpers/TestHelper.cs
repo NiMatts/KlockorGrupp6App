@@ -11,6 +11,17 @@ namespace KlockorGrupp6App.Tests.Helpers
 {
     public static class TestHelper
     {        
+        public static UserService CreateUserServiceWithMocks(
+            out Mock<IIdentityUserService> mockIdentityUserService, 
+            out Mock<IUnitOfWork> mockUnit)
+        {
+            mockIdentityUserService = new Mock<IIdentityUserService>();
+            mockUnit = new Mock<IUnitOfWork>();
+            mockUnit.Setup(u => u.IdentityUserService).Returns(mockIdentityUserService.Object);
+
+            return new UserService(mockUnit.Object);
+        }
+
         // Creates a ClockService with mocked IClockRepository and IUnitOfWork.        
         public static ClockService CreateClockServiceWithMocks(
             out Mock<IClockRepository> mockClockRepo, 

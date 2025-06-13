@@ -19,7 +19,7 @@
     <br />
 
     <label asp-for="Year"></label>
-    <input asp-for="Year" />
+    <input asp-for="Year" type="number" class="form-control" min="1550" max="@DateTime.Now.Year" />
     <span asp-validation-for="Year"></span>
     <br />
 
