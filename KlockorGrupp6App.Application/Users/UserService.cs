@@ -1,4 +1,5 @@
-﻿using KlockorGrupp6App.Application.Dtos;
+﻿using KlockorGrupp6App.Application.Clocks.Interfaces;
+using KlockorGrupp6App.Application.Dtos;
 
 namespace KlockorGrupp6App.Application.Users;
 

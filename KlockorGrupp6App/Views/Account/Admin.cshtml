@@ -14,15 +14,24 @@
     {
         <p><strong>@user.UserEmail</strong> - Clocks: @user.ClocksItems.Count</p>
 
-        <ol>
+        <ol style="list-style: none; padding: 0;">
             @foreach (var item in user.ClocksItems)
             {
-                <li>
+                <li style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #ccc;
+                                ">
                     <a asp-controller="Clocks" asp-action="Details" asp-route-id="@item.Id">
-                        @item.Brand @item.Model (@item.Owner)
+                        @item.Brand @item.Model
                     </a>
-                    <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
-                        <input type="submit" value="Delete" />
+
+                    <form asp-controller="Clocks" asp-action="Delete" asp-route-id="@item.Id" method="post" style="margin: 0;">
+                        <input type="submit" value="Delete"
+                               class="secondary"
+                               style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" />
                     </form>
                 </li>
             }
