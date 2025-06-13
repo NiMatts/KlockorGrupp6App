@@ -13,7 +13,19 @@ namespace KlockorGrupp6App.Web.Views.Klockor
         [Required(ErrorMessage = "Enter a Price")]
         public required decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Enter a Year")]
-        public required DateTime Year { get; set; }
+        [Required(ErrorMessage = "Enter a Year")]        
+        public required uint Year { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            int currentYear = DateTime.Now.Year;
+
+            if (Year < 1550 || Year > currentYear)
+            {
+                yield return new ValidationResult(
+                    $"Enter a valid year between 1550 and {currentYear}.",
+                    new[] { nameof(Year) });
+            }
+        }
     }
 }

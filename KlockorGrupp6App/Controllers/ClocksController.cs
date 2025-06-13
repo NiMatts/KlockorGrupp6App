@@ -71,7 +71,7 @@ public class ClocksController(IClockService service, UserManager<ApplicationUser
             Brand = viewModel.Brand,
             Model = viewModel.Model,
             Price = viewModel.Price,
-            Year = viewModel.Year,
+            Year = new DateTime((int)viewModel.Year, 1, 1),            
             CreatedByUserID = user.Id
         };
 
