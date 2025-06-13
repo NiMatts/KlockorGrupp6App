@@ -40,7 +40,7 @@ namespace KlockorGrupp6App.Terminal
                 table[i, 0] = clocks[i].Brand;
                 table[i, 1] = clocks[i].Model;
                 table[i, 2] = clocks[i].Price.ToString();
-                table[i, 3] = clocks[i].Year.ToString();
+                table[i, 3] = clocks[i].Year.Year.ToString();
                 table[i, 4] = clocks[i].CreatedByUserID;
             }
 
@@ -50,23 +50,12 @@ namespace KlockorGrupp6App.Terminal
             .DefaultIfEmpty(0) // handles empty array case
             .Max();
 
-            int[] columnLeangth = [10, 10, 10, 13, maxLength];
-            string[] columnHeads = ["Brand", "Model", "Price", "Release Date", "Created by user"];
+            int[] columnLeangth = [15, 15, 10, 4, maxLength];
+            string[] columnHeads = ["Brand", "Model", "Price", "Year", "Created by user"];
 
             TerminalTable(table, columnLeangth, columnHeads);
         }
 
-        //public string Brand { get; set; } = null!;
-        //public string Model { get; set; } = null!;
-        //public decimal Price { get; set; }
-        //public DateTime Year { get; set; }
-
-        //public string CreatedByUserID { get; set; } = null!;
-
-        //public override string ToString()
-        //{
-        //    return $"{Brand} {Model} Price: {Price} ";
-        //}
         private static async Task ListAllUserssAsync(IServiceProvider services)
         {
             var userService = services.GetRequiredService<IIdentityUserService>();
@@ -89,6 +78,7 @@ namespace KlockorGrupp6App.Terminal
             string tableHead = Rows(columnHeads, columnLengths);
             string dividerRow = "";
             for (int i = 0; i < tableHead.Length; i++) { dividerRow += "-"; }
+            Console.WriteLine(dividerRow);
             Console.WriteLine(tableHead);
             Console.WriteLine(dividerRow);
             int rows = table.GetLength(0);
@@ -103,6 +93,7 @@ namespace KlockorGrupp6App.Terminal
                 }
                 Console.WriteLine(Rows(row, columnLengths));
             }
+            Console.WriteLine(dividerRow);
 
             static string Rows(string[] columns, int[] columnLengths)
             {
