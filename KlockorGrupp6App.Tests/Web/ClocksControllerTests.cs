@@ -111,7 +111,7 @@ namespace KlockorGrupp6App.Tests.Web
                 HttpContext = new DefaultHttpContext
                 {
                     User = new System.Security.Claims.ClaimsPrincipal(new System.Security.Claims.ClaimsIdentity(
-                        new[] { new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, user.Email) }))
+                        [new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, user.Email)]))
                 }
             };
 

@@ -29,7 +29,7 @@ namespace KlockorGrupp6App.Infrastructure.Services
             }
 
             // Now you can access the user's ID
-            var userId = appUser.Id;
+            _ = appUser.Id;
             if (isAdmin)
             {
                 const string RoleName = "Administrator";
@@ -64,10 +64,10 @@ namespace KlockorGrupp6App.Infrastructure.Services
         public async Task<UserProfileDto[]> GetAllUsersAsync()
         {
             var users = await userManager.Users
-                .Select(u => new UserProfileDto(u.Email, u.FirstName, u.LastName))
+                .Select(u => new UserProfileDto(u.Email!, u.FirstName, u.LastName))
                 .ToListAsync();
 
-            return users.ToArray();
+            return [.. users];
         }
     }
 }

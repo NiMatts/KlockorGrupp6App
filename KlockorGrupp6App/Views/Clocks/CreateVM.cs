@@ -25,7 +25,7 @@ namespace KlockorGrupp6App.Web.Views.Clocks
             {
                 yield return new ValidationResult(
                     $"Enter a valid year between 1550 and {currentYear}.",
-                    new[] { nameof(Year) });
+                    [nameof(Year)]);
             }
         }
     }
